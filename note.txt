@@ -1,0 +1,231 @@
+Example 1: Converting a String to an Array
+
+const str = 'hello';
+const arr = Array.from(str);
+console.log(arr); // Output: ['h', 'e', 'l', 'l', 'o']
+Example 2: Converting a Set to an Array
+
+const set = new Set([1, 2, 3]);
+const arr = Array.from(set);
+console.log(arr); // Output: [1, 2, 3]
+Example 3: Mapping and Converting to an Array
+You can use the second argument of Array.from to map each element to a new value.
+
+
+const arr = Array.from([1, 2, 3], x => x * 2);
+console.log(arr); // Output: [2, 4, 6]
+Example 4: Creating an Array from a NodeList
+
+// Assuming you have some elements in your HTML like <div class="item">...</div>
+const nodeList = document.querySelectorAll('.item');
+const arr = Array.from(nodeList);
+console.log(arr); // Output: Array of DOM elements with class 'item'
+Example 5: Creating an Array of Length n
+
+const n = 5;
+const arr = Array.from({ length: n }, (_, index) => index + 1);
+console.log(arr); // Output: [1, 2, 3, 4, 5]
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+Array.from is used to convert a Set of unique categories into an array. The Set ensures that each category appears only once, removing any duplicates. Here’s a breakdown of what's happening:
+
+Fetch Data: Fetch data from the API.
+Extract Categories: Use map to extract the categories property from each product.
+Remove Duplicates: Use Set to create a collection of unique categories.
+Convert to Array: Use Array.from to convert this Set back to an array.
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+The ?? operator is called the nullish coalescing operator in JavaScript. It provides a way to handle null or undefined values by returning the value on the right-hand side if the left-hand side is null or undefined.
+
+Explanation:
+Syntax: a ?? b
+Behavior: If a is null or undefined, the operator returns b. Otherwise, it returns a.
+Example:
+Basic Usage:
+
+
+const name = null;
+const displayName = name ?? "Guest";
+console.log(displayName); // Output: "Guest"
+With undefined Value:
+
+
+let age;
+const displayAge = age ?? 18;
+console.log(displayAge); // Output: 18
+With Non-null and Non-undefined Value:
+
+
+const city = "New York";
+const displayCity = city ?? "Unknown";
+console.log(displayCity); // Output: "New York"
+
+////////////////////////////////////////////////////////////////
+// Example 1
+const filter1 = "JavaScript";
+const formattedFilter1 = filter1.charAt(0).toLowerCase() + filter1.slice(1);
+console.log(formattedFilter1); // "javaScript"
+
+// Example 2
+const filter2 = "FilterExample";
+const formattedFilter2 = filter2.charAt(0).toLowerCase() + filter2.slice(1);
+console.log(formattedFilter2); // "filterExample"
+
+// Example 3
+const filter3 = "API";
+const formattedFilter3 = filter3.charAt(0).toLowerCase() + filter3.slice(1);
+console.log(formattedFilter3); // "aPI"
+
+////////////////////////////////
+Components:
+Base URL: https://dummyjson.com/products
+Query Parameters:
+limit=${itemsPerPage}: This sets the number of items to fetch per page.
+skip=${currentPage - 1 * itemsPerPage}: This calculates the number of items to skip based on the current page number and the number of items per page.
+Simple Example:
+Let's assume we have the following values:
+
+itemsPerPage = 10
+currentPage = 2
+Calculation Steps:
+Limit: itemsPerPage is 10, so the URL will include limit=10.
+Skip: currentPage - 1 * itemsPerPage
+First, evaluate currentPage - 1: 2 - 1 = 1
+Then, multiply by itemsPerPage: 1 * 10 = 10
+So, the URL will include skip=10.
+Constructed URL:
+Given the values above, the constructed URL would be:
+
+
+let url = `https://dummyjson.com/products?limit=10&skip=10`;
+More Examples:
+Example 1:
+itemsPerPage = 5
+currentPage = 1
+Limit: itemsPerPage is 5, so limit=5.
+Skip:
+currentPage - 1: 1 - 1 = 0
+0 * 5 = 0
+So, skip=0.
+Constructed URL:
+
+
+let url = `https://dummyjson.com/products?limit=5&skip=0`;
+Example 2:
+itemsPerPage = 15
+currentPage = 3
+Limit: itemsPerPage is 15, so limit=15.
+Skip:
+currentPage - 1: 3 - 1 = 2
+2 * 15 = 30
+So, skip=30.
+Constructed URL:
+
+
+let url = `https://dummyjson.com/products?limit=15&skip=30`;
+
+
+////////////////////////////////////////////////////////////////
+Step-by-Step Calculation
+Let's calculate the number of pages step-by-step with the given numbers:
+
+
+const totalProducts = 100;
+const itemsPerPage = 12;
+const totalPages = Math.ceil(totalProducts / itemsPerPage);
+Divide totalProducts by itemsPerPage:
+
+
+totalProducts / itemsPerPage
+100 / 12 equals approximately 8.3333.
+Apply Math.ceil():
+
+
+Math.ceil(8.3333)
+Math.ceil() rounds 8.3333 up to 9.
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+Explanation
+Let's assume:
+
+currentPage is the page the user is currently on.
+totalPages is the total number of pages available.
+Step-by-Step Breakdown
+Initialize Variables:
+
+
+const buttons = [];
+let startPage = Math.max(1, currentPage - 2);
+let endPage = Math.min(totalPages, currentPage + 2);
+buttons: An empty array to store the page numbers.
+startPage: The first page number to be shown. It's the maximum of 1 or (currentPage - 2).
+endPage: The last page number to be shown. It's the minimum of totalPages or (currentPage + 2).
+Adjust endPage if currentPage - 2 is less than 1:
+
+
+if (currentPage - 2 < 1) {
+  endPage = Math.min(totalPages, endPage + (2 - currentPage - 1));
+}
+If the current page is too close to the beginning (i.e., currentPage - 2 < 1), adjust endPage to ensure up to 5 pages are shown.
+Adjust startPage if currentPage + 2 is greater than totalPages:
+
+
+if (currentPage + 2 > totalPages) {
+  startPage = Math.max(1, startPage - (2 - (totalPages - currentPage)));
+}
+If the current page is too close to the end (i.e., currentPage + 2 > totalPages), adjust startPage to ensure up to 5 pages are shown.
+Create Pagination Buttons:
+
+
+for (let page = startPage; page <= endPage; page++) {
+  buttons.push(page);
+}
+Loop from startPage to endPage, pushing each page number into the buttons array.
+Return Buttons:
+
+
+return buttons;
+Return the array of page numbers to be used for rendering pagination buttons.
+Example Scenarios
+Scenario 1: Middle of the Pages
+currentPage = 5
+totalPages = 10
+Initial Calculation:
+
+startPage = Math.max(1, 5 - 2) = 3
+endPage = Math.min(10, 5 + 2) = 7
+No adjustment needed because the current page is not near the beginning or end.
+
+Result:
+
+buttons = [3, 4, 5, 6, 7]
+Scenario 2: Near the Beginning
+currentPage = 2
+totalPages = 10
+Initial Calculation:
+
+startPage = Math.max(1, 2 - 2) = 1
+endPage = Math.min(10, 2 + 2) = 4
+Adjustment:
+
+Since currentPage - 2 < 1, adjust endPage:
+
+endPage = Math.min(10, 4 + (2 - 2 - 1)) = 4
+Result:
+
+buttons = [1, 2, 3, 4]
+Scenario 3: Near the End
+currentPage = 9
+totalPages = 10
+Initial Calculation:
+
+startPage = Math.max(1, 9 - 2) = 7
+endPage = Math.min(10, 9 + 2) = 10
+Adjustment:
+
+Since currentPage + 2 > 10, adjust startPage:
+
+startPage = Math.max(1, 7 - (2 - (10 - 9))) = 7
+Result:
+
+buttons = [7, 8, 9, 10]
